@@ -1,5 +1,4 @@
 class TemperatureTools
- @@classvariable = 8
   def initialize
     @unit = 'f'
     @temperature = nil
@@ -12,7 +11,6 @@ class TemperatureTools
   def changeUnitToFahrenheit
     @unit = 'f'
   end
-
 
 
 
@@ -64,9 +62,30 @@ class TemperatureTools
 
   def average
     @weekly_temp = Array.new
-    @weekly_temp = File.read("Week_Temperatures.rb").split("; ").collect! { |x| x.to_f } #Review this code for full understanding
+    @weekly_temp = File.read("weekly_temperatures.rb").split("; ").collect! { |x| x.to_f } #Review this code for full understanding
     @average = @weekly_temp.inject(0.0) { |result, element| result + element } / @weekly_temp.size
     puts "This week's average temperature is: #{@average.round(2)} degrees Fahrenheit"
+  end
+
+  def temp_max
+    @weekly_temp = Array.new
+    @weekly_temp = File.read("weekly_temperatures.rb").split("; ").collect! { |x| x.to_f }
+    puts "The maximum temperature is: #{@weekly_temp.max}"
+  end
+
+  def temp_min
+    @weekly_temp = Array.new
+    @weekly_temp = File.read("weekly_temperatures.rb").split("; ").collect! { |x| x.to_f }
+    puts "The minimum temperature is: #{@weekly_temp.min}"
+  end
+
+  def temp_median
+    @weekly_temp = Array.new
+    @weekly_temp = File.read("weekly_temperatures.rb").split("; ").collect! { |x| x.to_f }
+    @sorted = @weekly_temp.sort
+    @len = @weekly_temp.length
+    @median = @len % 2 == 1 ? @sorted[@len / 2] : (@sorted[@len/2 - 1] + @sorted[@len/2]).to_f / 2
+    puts "The median temperature is: #{@median}"
   end
 
   def convert
@@ -82,62 +101,14 @@ class TemperatureTools
   end
 end
 
-class Menu < TemperatureTools
-  def initialize
-  end
+#Workflow
+a = TemperatureTools.new
+a.temp_max
+a.temp_min
+a.temp_median
+a.average
+a.set_unit
+a.set_temperature
+a.convert
 
-  def menu
-    @m = Menu.new
-    @t = TemperatureTools.new
-    puts "What would you like to do?\n1.Set unit & temperature\n2.See current temperature\n3.Convert temperature\n4.See weekly average temperature\n5.Exit\nEnter option number:"
-    @option = gets.chomp
-
-    until @option.match(/^[1-5]{1}$/)
-      puts "Please enter one of the option numbers (1-5):"
-      @option = gets.chomp
-    end
-
-    case
-      when @option == "1"
-        @t.set_unit
-        @t.set_temperature
-        @t.temp_and_unit
-        @m.next
-      when @option == "2"
-        @t.temp_and_unit
-        @m.next
-      when @option == "3"
-        @t.convert
-        @m.next
-      when @option == "4"
-        @t.average
-        @m.next
-      when @option == "5"
-        puts "Goodbye!"
-        exit
-    end
-  end
-
-  def next
-    m = Menu.new
-    puts "Would you like to do anything else? (y/n)"
-    x = gets.chomp
-    until x.match(/^[y|n]{1}$/)
-      puts "Please enter only y or n:"
-      x = gets.chomp
-    end
-    case
-      when x == "y"
-        m.menu
-      when x == "n"
-        puts "Goodbye!"
-        exit
-    end
-  end
-end
-
-#Executed code
-t = TemperatureTools.new
-n = Menu.new
-n.menu
 
