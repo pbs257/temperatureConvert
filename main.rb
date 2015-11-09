@@ -1,5 +1,5 @@
-require_relative 'temperature_tools'
-require_relative 'input_checker'
+require_relative 'src/temperature_tools'
+require_relative 'src/input_checker'
 # parse_unit 'c'
 # tool = TemperatureTools.new
 # tool.setFahrenheit
