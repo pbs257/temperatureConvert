@@ -8,7 +8,7 @@ class InputChecker
   end
 
   def checkIfTemperatureCorrect input
-    if input.match(/^\d+$/)
+    if input.match(/^\d+ *(\.\d+)?$/) #11/10/15 PS: refactored regular expression to accept decimals
       return true
     else
       return false

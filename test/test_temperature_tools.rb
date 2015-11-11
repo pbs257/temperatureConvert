@@ -24,10 +24,20 @@ class TestTemperature < Minitest::Test
   end
 
   def test_average
-
     assert_equal 46.666666666666664, @temperature.average([2,48,90])
   end
 
+  def test_max
+    assert_equal 90, @temperature.temp_max([2,48,90])
+  end
+
+  def test_min
+    assert_equal 2, @temperature.temp_min([2,48,90])
+  end
+
+  def test_median
+    assert_equal 48, @temperature.temp_median([2,48,90])
+  end
 
   end
 

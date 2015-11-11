@@ -1,9 +1,9 @@
 class TemperatureTools
 
-  @@peters_variable = "I am a class variable"
+  @@peters_variable = "I am a class variable" #QUESTION: How do I access class variables outside of the class? For example, I'm trying to output the converted number's unit. I'd like to designate this in TemperatureTools and output in main. How do I do this?
   def initialize
     @unit = 'f'
-    @celsius = true;
+    @celsius = false; #11/10/15 PS-Changed from 'true'.
     @temperature = nil
   end
 
@@ -14,12 +14,9 @@ class TemperatureTools
     @celsius = false
   end
 
-
-
   def average temperatures
     temperatures.inject(0.0) { |result, element| result + element } / temperatures.size
   end
-
   def temp_max temperatures
     temperatures.max
   end
